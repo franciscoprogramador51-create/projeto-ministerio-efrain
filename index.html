@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ministério Efrain | Uma Família para Pertencer</title>
+    
+    <link href="https://fonts.googleapis.com" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com">
+    
+    <style>
+.mapa-container {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+@media (max-width: 768px) {
+    .mapa-container iframe {
+        height: 300px; /* Mapa menor em telas pequenas */
+    }
+}
+
+     .whatsapp-float {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 40px;
+    right: 40px;
+    background-color: #25d366;
+    color: #FFF;
+    border-radius: 50px;
+    text-align: center;
+    font-size: 30px;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+/* Ajuste para o texto "Fale Conosco" não esticar a bola */
+.tooltip-whatsapp {
+    position: absolute;
+    right: 75px; /* Joga o texto para a esquerda da bola */
+    background-color: #333;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: sans-serif;
+    white-space: nowrap; /* Impede que o texto quebre linha */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    pointer-events: none;
+    
+    /* Faz o texto começar escondido e aparecer no mouse */
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+    transform: translateX(10px);
+}
+
+/* Faz o texto aparecer suavemente quando passa o mouse */
+.whatsapp-float:hover .tooltip-whatsapp {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.whatsapp-float:hover {
+    background-color: #128c7e;
+    transform: scale(1.1);
+}
+        :root {
+            --primary: #0a192f;
+            --accent: #d4af37;
+            --white: #ffffff;
+            --gray: #f4f4f4;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Montserrat', sans-serif; color: #333; line-height: 1.6; scroll-behavior: smooth; overflow-x: hidden; }
+
+        .navbar {
+            position: fixed; top: 0; width: 100%; display: flex;
+            justify-content: space-between; align-items: center;
+            padding: 20px 8%; z-index: 1000;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+        }
+        .logo { font-weight: 800; color: var(--white); font-size: 1.4rem; letter-spacing: 2px; }
+        .nav-links { display: flex; list-style: none; gap: 30px; }
+        .nav-links a { color: var(--white); text-decoration: none; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; }
+
+        .hero {
+            position: relative; height: 100vh; width: 100%;
+            display: flex; align-items: center; justify-content: center;
+            overflow: hidden; text-align: center; color: var(--white);
+        }
+        #bg-video {
+            position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%;
+            z-index: -2; transform: translate(-50%, -50%); object-fit: cover;
+        }
+        .overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(10, 25, 47, 0.6); z-index: -1;
+        }
+        .hero-content h1 { font-family: 'Playfair Display', serif; font-size: 4.5rem; line-height: 1.1; }
+        .hero-content p { font-size: 1.1rem; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 30px; color: var(--accent); }
+
+        .section { padding: 80px 10%; text-align: center; }
+        .section-title { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 40px; color: var(--primary); }
+        .section-title::after { content: ''; display: block; width: 50px; height: 3px; background: var(--accent); margin: 15px auto; }
+
+        .grid-cultos { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        .card { padding: 40px; background: var(--white); border: 1px solid #eee; transition: 0.3s; }
+        .card:hover { transform: translateY(-5px); border-color: var(--accent); }
+        .card i { font-size: 2rem; color: var(--accent); margin-bottom: 15px; }
+
+        /* --- GALERIA CORRIGIDA PARA FOTOS LOCAIS --- */
+        .galeria-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            width: 100%;
+        }
+        .foto-card {
+            position: relative;
+            height: 350px; /* Altura fixa para todas */
+            width: 100%;   /* Largura total da coluna */
+            overflow: hidden;
+            border-radius: 10px;
+            background: #ddd; /* Fundo caso a foto não carregue */
+        }
+        .foto-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* ESTA LINHA FAZ A FOTO FICAR GRANDE E PREENCHER TUDO */
+            display: block;
+            transition: transform 0.5s;
+        }
+        .foto-card:hover img { transform: scale(1.1); }
+        .foto-legenda {
+            position: absolute; bottom: 0; left: 0; width: 100%;
+            padding: 20px; background: linear-gradient(transparent, rgba(10, 25, 47, 0.8));
+            color: white; font-weight: 600; opacity: 0; transition: 0.3s;
+        }
+        .foto-card:hover .foto-legenda { opacity: 1; }
+
+        .oracao-container {
+            max-width: 600px; margin: 0 auto; padding: 40px;
+            background: var(--white); border-radius: 10px; border: 1px solid #eee;
+        }
+        .form-group { display: flex; flex-direction: column; gap: 15px; text-align: left; margin-top: 20px; }
+        .form-group input, .form-group textarea { padding: 12px; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; }
+
+        .btn-gold { 
+            background: var(--accent); color: var(--white); border: none;
+            padding: 15px 35px; font-weight: 700; text-transform: uppercase;
+            cursor: pointer; transition: 0.3s; text-decoration: none; display: inline-block;
+        }
+
+        footer { background: var(--primary); color: var(--white); padding: 60px 10% 20px; text-align: left; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; }
+        .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--accent); font-weight: 800; }
+        .copyright { margin-top: 50px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.8rem; opacity: 0.6; text-align: center; }
+
+        @media (max-width: 768px) { .hero-content h1 { font-size: 2.5rem; } .nav-links { display: none; } }
+    </style>
+</head>
+<body>
+
+   <body> <!-- Logo após o início do body -->
+
+    <nav class="navbar">
+        <div class="logo">MINISTÉRIO EFRAIN</div>
+        
+        <!-- COLOQUE OS LINKS AQUI DENTRO -->
+        <ul class="nav-links">
+            <li><a href="#inicio">Início</a></li>
+            <li><a href="#cultos">Cultos</a></li>
+            <li><a href="#fotos">Galeria</a></li>
+            <li><a href="#oracao">Oração</a></li>
+            <li><a href="#localizacao">Localização</a></li>
+        </ul>
+    </nav>
+
+    <!-- O resto do site vem abaixo (Hero, Cultos, etc) -->
+
+    <header id="inicio" class="hero">
+        <video autoplay muted loop playsinline id="bg-video">
+            <source src="video-igreja.mp4.mp4" type="video/mp4">
+        </video>
+        <div class="overlay"></div>
+        <div class="hero-content">
+            <p>Seja muito bem-vindo</p>
+            <h1>Onde a Graça<br>Encontra Você.</h1>
+            <a href="#cultos" class="btn-gold" style="margin-top: 20px; border-radius: 50px;">Conheça Nossos Cultos</a>
+        </div>
+    </header>
+
+    <section id="cultos" class="section">
+        <h2 class="section-title">Nossas Celebrações</h2>
+        <div class="grid-cultos">
+            <div class="card">
+                <i class="fas fa-cross"></i>
+                <h3>Domingo</h3>
+                <p>Celebração da Família • 18:00h</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-fire"></i>
+                <h3>Quarta-Feira</h3>
+                <p>Ensino e Avivamento • 19:30h</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-heart"></i>
+                <h3>Sábado</h3>
+                <p>Ministério de Jovens • 20:00h</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="fotos" class="section" style="background: var(--gray);">
+    <h2 class="section-title">Nossa Comunidade</h2>
+    <p style="margin-bottom: 30px;">Momentos especiais da família Ministério Efrain</p>
+    
+    <div class="galeria-grid">
+        <!-- Foto 1 -->
+        <div class="foto-card">
+            <img src="foto1.jpg.jpg" alt="Culto de Celebração">
+            <div class="foto-legenda">Ministério de Louvor</div>
+        </div>
+        <!-- Foto 2 -->
+        <div class="foto-card">
+            <img src="foto2.jpg.jpg" alt="Ministério de Louvor">
+            <div class="foto-legenda">Culto de celebração</div>
+        </div>
+        <!-- Foto 3 -->
+        <div class="foto-card">
+            <img src="foto3.jpg.jpg" alt="Círculo de Oração">
+            <div class="foto-legenda">Círculo de Oração</div>
+        </div>
+        <!-- Foto 4 -->
+        <div class="foto-card">
+            <img src="foto4.jpg.jpg" alt="Templo">
+            <div class="foto-legenda">Igreja</div>
+        </div>
+         <!-- Foto 5 -->
+        <div class="foto-card">
+            <img src="foto5.jpg.jpg" alt="Palavra de Deus">
+            <div class="foto-legenda">Palavra de Deus</div>
+        </div>
+    </div>
+</section>
+
+    <section id="oracao" class="section">
+        <div class="oracao-container">
+            <h2 class="section-title" style="margin-bottom: 10px;">Pedido de Oração</h2>
+            <p>Deixe seu motivo de oração abaixo.</p>
+            <form class="form-group">
+                <input type="text" placeholder="Nome completo" required>
+                <textarea rows="4" placeholder="Como podemos orar por você?" required></textarea>
+                <button type="submit" class="btn-gold">Enviar Pedido</button>
+            </form>
+        </div>
+    </section>
+
+<section id="localizacao" class="section" style="background: var(--white); padding: 100px 10%;">
+    <h2 class="section-title">Nossa Localização</h2>
+    <p style="margin-bottom: 40px; color: #666;">Estamos localizados em Fortaleza - CE. Clique no mapa abaixo para abrir o GPS e vir nos visitar!</p>
+    
+    <div class="mapa-box">
+        <!-- LINK QUE ABRE O GOOGLE MAPS REAL -->
+        <a href="https://www.google.com" target="_blank" class="mapa-link">
+            <div class="mapa-placeholder">
+                <i class="fas fa-map-location-dot" style="font-size: 5rem; color: var(--accent); margin-bottom: 20px;"></i>
+                <h3 style="color: white; font-family: 'Playfair Display', serif;">Clique aqui para abrir o Google Maps</h3>
+                <p style="color: rgba(255,255,255,0.8); margin-top: 10px;">Rua Exemplo, 123 - Fortaleza, CE</p>
+                <span class="btn-gold" style="margin-top: 25px; border-radius: 5px;">VER NO GPS</span>
+            </div>
+        </a>
+    </div>
+</section>
+
+<style>
+    /* Estilo para o quadro do mapa que não dá erro */
+    .mapa-box {
+        max-width: 900px;
+        margin: 0 auto;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+    }
+
+    .mapa-link {
+        text-decoration: none;
+    }
+
+    .mapa-placeholder {
+        background: linear-gradient(45deg, var(--primary), #1e4b7a);
+        padding: 80px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: 0.4s;
+        border: 2px solid var(--accent);
+    }
+
+    .mapa-placeholder:hover {
+        filter: brightness(1.2);
+        transform: scale(1.01);
+    }
+</style>
+    <footer id="contato">
+        <div class="footer-grid">
+            <div>
+                <div class="footer-logo">EFRAIN</div>
+                <p style="margin-top: 10px; opacity: 0.8;">Frutificando para a glória de Deus.</p>
+            </div>
+            <div>
+                <h4 style="color: var(--accent); margin-bottom: 15px;">Fale Conosco</h4>
+                <p style="opacity: 0.8; font-size: 0.9rem;">WhatsApp: (00) 00000-0000<br>contato@ministerioefrain.com</p>
+            </div>
+        </div>
+        <div class="copyright">&copy; 2026 Ministério Efrain.</div>
+    </footer>
+  <!-- COLOQUE O BOTÃO AQUI, ANTES DE FECHAR O BODY -->
+
+<!-- BOTÃO WHATSAPP CORRIGIDO -->
+<a href="https://wa.me/5585991040221" 
+   class="whatsapp-float" 
+   target="_blank" 
+   rel="noopener noreferrer">
+    <i class="fab fa-whatsapp"></i>
+    <span class="tooltip-whatsapp">Fale Conosco</span>
+</a>
+</body>
+</html>
